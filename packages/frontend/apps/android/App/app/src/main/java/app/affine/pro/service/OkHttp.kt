@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap
 object OkHttp {
 
     val client = OkHttpClient.Builder()
+        .sslSocketFactory(ClientCertificates.sslSocketFactory, ClientCertificates.trustManager)
         .cookieJar(object : CookieJar {
 
             override fun loadForRequest(url: HttpUrl): List<Cookie> {
@@ -53,6 +54,7 @@ object OkHttp {
 
 object AuthHttp {
     val client = OkHttpClient.Builder()
+        .sslSocketFactory(ClientCertificates.sslSocketFactory, ClientCertificates.trustManager)
         .cookieJar(CookieJar.NO_COOKIES)
         .addInterceptor {
             it.proceed(
